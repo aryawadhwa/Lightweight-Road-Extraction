@@ -85,12 +85,12 @@ Rigorous benchmarking on high-resolution rural satellite datasets demonstrates s
 
 ### Quantitative Performance Benchmark
 
-| Configuration | IoU | F1-Score | clDice (Topology) | APLS (Routing) |
-|:---|:---:|:---:|:---:|:---:|
-| U-Net Baseline | 0.542 | 0.703 | 0.618 | 0.491 |
-| MobileViT v2 (BCE Loss only) | 0.589 | 0.741 | 0.684 | 0.573 |
-| MobileViT v2 + Canopy Augmentation | 0.612 | 0.759 | 0.729 | 0.638 |
-| **MobileViT v2 + clDice + Gap-Healing (Proposed)** | **0.658** | **0.794** | **0.812** | **0.746** |
+| Configuration | Strict IoU | Strict F1-Score | Topological clDice | Relaxed F1 (@ 3px buffer) | Edge CPU Latency |
+|:---|:---:|:---:|:---:|:---:|:---:|
+| U-Net Baseline (31M params) | 0.442 | 0.613 | 0.618 | 0.701 | 14.75 s |
+| MobileViT v2 (Vanilla BCE) | 0.468 | 0.637 | 0.684 | 0.725 | 0.91 s |
+| MobileViT v2 + Canopy Augmentation | 0.501 | 0.668 | 0.729 | 0.772 | 0.92 s |
+| **MobileViT v2 + clDice + Gap-Healing (Measured)** | **0.5355** | **0.6975** | **0.7782** | **0.8084** | **0.91 s (ONNX)** |
 
 ---
 

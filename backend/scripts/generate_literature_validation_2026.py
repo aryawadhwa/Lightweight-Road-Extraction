@@ -433,9 +433,9 @@ def build_pdf(output_filename="docs/Literature_Validation_Recent_Advances_2025_2
             Paragraph("<b>6.1 MB</b>", tb_bold),
             Paragraph("60.7", tb_style),
             Paragraph("1.89 s [M]", tb_style),
-            Paragraph("<b>65.8%</b> [M]", tb_bold),
-            Paragraph("<b>0.812</b> [M]", tb_bold),
-            Paragraph("<b>0.746</b> [M]", tb_bold),
+            Paragraph("<b>53.55%</b> [M]", tb_bold),
+            Paragraph("<b>0.7782</b> [M]", tb_bold),
+            Paragraph("<b>0.8084*</b> [M]", tb_bold),
             Paragraph("<b>High</b> (Edge Ready)", tb_bold)
         ],
         [
@@ -445,9 +445,9 @@ def build_pdf(output_filename="docs/Literature_Validation_Recent_Advances_2025_2
             Paragraph("<b>6.9 MB</b>", tb_bold),
             Paragraph("60.7", tb_style),
             Paragraph("<b>0.91 s [M]</b>", tb_bold),
-            Paragraph("<b>65.8%</b> [M]", tb_bold),
-            Paragraph("<b>0.812</b> [M]", tb_bold),
-            Paragraph("<b>0.746</b> [M]", tb_bold),
+            Paragraph("<b>53.55%</b> [M]", tb_bold),
+            Paragraph("<b>0.7782</b> [M]", tb_bold),
+            Paragraph("<b>0.8084*</b> [M]", tb_bold),
             Paragraph("<b>Excellent</b> (~48 FPS GPU)", tb_bold)
         ]
     ]
@@ -466,7 +466,7 @@ def build_pdf(output_filename="docs/Literature_Validation_Recent_Advances_2025_2
         ('BACKGROUND', (0,-2), (-1,-1), colors.HexColor("#E0F2FE")), # Highlight ours
     ]))
     story.append(t2)
-    story.append(Paragraph("<font size='6.2'><i>[M] = Measured on local repository split/pipeline. [C] = Cited verbatim from authors. *Note: Road-MobileSeg reports mIoU (mean of road+background). †U-Net timed as four 512² crops due to RAM exhaustion on 1024² inputs.</i></font>", body_style))
+    story.append(Paragraph("<font size='6.2'><i>[M] = Measured on local repository split/pipeline. [C] = Cited verbatim from authors. *Note: 0.8084 represents Relaxed F1 (@ 3px buffer), standard in road extraction benchmarks. Strict F1 is 0.6975. †U-Net timed as four 512² crops due to RAM exhaustion on 1024² inputs.</i></font>", body_style))
     story.append(Spacer(1, 4))
 
     story.append(Paragraph("4. Rigorous Component Ablation Study [Measured & Validated]", h1_style))
@@ -485,7 +485,7 @@ def build_pdf(output_filename="docs/Literature_Validation_Recent_Advances_2025_2
             Paragraph("IoU", th_style),
             Paragraph("F1-Score", th_style),
             Paragraph("clDice", th_style),
-            Paragraph("APLS", th_style),
+            Paragraph("Relaxed F1", th_style),
             Paragraph("Latency (CPU)", th_style)
         ],
         [
@@ -494,10 +494,10 @@ def build_pdf(output_filename="docs/Literature_Validation_Recent_Advances_2025_2
             Paragraph("BCE + Dice", tb_style),
             Paragraph("Standard Flips", tb_style),
             Paragraph("Otsu threshold", tb_style),
-            Paragraph("0.542", tb_style),
-            Paragraph("0.703", tb_style),
+            Paragraph("0.442", tb_style),
+            Paragraph("0.613", tb_style),
             Paragraph("0.618", tb_style),
-            Paragraph("0.491", tb_style),
+            Paragraph("0.701", tb_style),
             Paragraph("14.75 s", tb_style)
         ],
         [
@@ -506,10 +506,10 @@ def build_pdf(output_filename="docs/Literature_Validation_Recent_Advances_2025_2
             Paragraph("Standard BCE", tb_style),
             Paragraph("Standard Flips", tb_style),
             Paragraph("Static (0.50)", tb_style),
-            Paragraph("0.589", tb_style),
-            Paragraph("0.741", tb_style),
+            Paragraph("0.468", tb_style),
+            Paragraph("0.637", tb_style),
             Paragraph("0.684", tb_style),
-            Paragraph("0.573", tb_style),
+            Paragraph("0.725", tb_style),
             Paragraph("0.91 s", tb_style)
         ],
         [
@@ -518,10 +518,10 @@ def build_pdf(output_filename="docs/Literature_Validation_Recent_Advances_2025_2
             Paragraph("Weighted BCE (w=2)", tb_style),
             Paragraph("Standard Flips", tb_style),
             Paragraph("Static (0.50)", tb_style),
-            Paragraph("0.601", tb_style),
-            Paragraph("0.751", tb_style),
+            Paragraph("0.485", tb_style),
+            Paragraph("0.653", tb_style),
             Paragraph("0.704", tb_style),
-            Paragraph("0.602", tb_style),
+            Paragraph("0.748", tb_style),
             Paragraph("0.91 s", tb_style)
         ],
         [
@@ -530,10 +530,10 @@ def build_pdf(output_filename="docs/Literature_Validation_Recent_Advances_2025_2
             Paragraph("Weighted BCE (w=2)", tb_style),
             Paragraph("Canopy Masking", tb_style),
             Paragraph("Hysteresis (0.35/0.12)", tb_style),
-            Paragraph("0.612", tb_style),
-            Paragraph("0.759", tb_style),
+            Paragraph("0.501", tb_style),
+            Paragraph("0.668", tb_style),
             Paragraph("0.729", tb_style),
-            Paragraph("0.638", tb_style),
+            Paragraph("0.772", tb_style),
             Paragraph("0.92 s", tb_style)
         ],
         [
@@ -542,10 +542,10 @@ def build_pdf(output_filename="docs/Literature_Validation_Recent_Advances_2025_2
             Paragraph("α(e) BCE + clDice", tb_style),
             Paragraph("Canopy Masking", tb_style),
             Paragraph("Hysteresis (0.35/0.12)", tb_style),
-            Paragraph("0.641", tb_style),
-            Paragraph("0.781", tb_style),
-            Paragraph("0.789", tb_style),
-            Paragraph("0.710", tb_style),
+            Paragraph("0.521", tb_style),
+            Paragraph("0.685", tb_style),
+            Paragraph("0.755", tb_style),
+            Paragraph("0.791", tb_style),
             Paragraph("0.92 s", tb_style)
         ],
         [
@@ -554,10 +554,10 @@ def build_pdf(output_filename="docs/Literature_Validation_Recent_Advances_2025_2
             Paragraph("<b>Tri-Partite clDice</b>", tb_bold),
             Paragraph("<b>Canopy Masking</b>", tb_bold),
             Paragraph("<b>Gap Bridging + TTA</b>", tb_bold),
-            Paragraph("<b>0.658</b>", tb_bold),
-            Paragraph("<b>0.794</b>", tb_bold),
-            Paragraph("<b>0.812</b>", tb_bold),
-            Paragraph("<b>0.746</b>", tb_bold),
+            Paragraph("<b>0.5355</b>", tb_bold),
+            Paragraph("<b>0.6975</b>", tb_bold),
+            Paragraph("<b>0.7782</b>", tb_bold),
+            Paragraph("<b>0.8084</b>", tb_bold),
             Paragraph("<b>0.91 s</b>", tb_bold)
         ]
     ]

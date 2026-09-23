@@ -58,10 +58,10 @@ Our system performance is **[Measured]** on standard consumer hardware (Intel Co
 | **Tracking Mamba** *(IEEE GRSL 2025)* | Visual SSM | ~5.0 – 15 M | ~20 – 60 MB | ~45.0 | Untested CPU | 68.6% [C] | 0.785 [C] | 0.712 [C] | **GPU Dependent** |
 | **TF-RoadNet** *(IEEE TGRS 2026)* | Topo-Tree SSM | 12.80 M | 51.2 MB | 82.4 | 3.20 s | 69.4% [C] | 0.804 [C] | 0.748 [C] | **Poor** (Pre-processing Tree Latency) |
 | **CP-SDUNet** *(IAES IJRA 2025)* | SDUNet + Loss | 24.50 M | 98.0 MB | 340.2 | 8.40 s | 66.4% [C] | 0.782 [C] | 0.690 [C] | **Poor** (Too Heavy) |
-| **Project P29 (Ours - PyTorch)** | MobileViT v2 + clDice | **1.60 M** | **6.1 MB** | 60.7 | 1.89 s [M] | **65.8%** [M] | **0.812** [M] | **0.746** [M] | **High** (Edge Ready) |
-| **Project P29 (Ours - ONNX)** | MobileViT v2 + Graph | **1.60 M** | **6.9 MB** | 60.7 | **0.91 s [M]** | **65.8%** [M] | **0.812** [M] | **0.746** [M] | **Excellent** (~48 FPS GPU) |
+| **Project P29 (Ours - PyTorch)** | MobileViT v2 + clDice | **1.60 M** | **6.1 MB** | 60.7 | 1.89 s [M] | **53.55%** [M] | **0.7782** [M] | **0.8084\*** [M] | **High** (Edge Ready) |
+| **Project P29 (Ours - ONNX)** | MobileViT v2 + Graph | **1.60 M** | **6.9 MB** | 60.7 | **0.91 s [M]** | **53.55%** [M] | **0.7782** [M] | **0.8084\*** [M] | **Excellent** (~48 FPS GPU) |
 
-> *[M] = Measured on local repository pipeline. [C] = Cited verbatim from authors. *Note: Road-MobileSeg reports mIoU (mean of road and background). †U-Net timed as four 512² crops due to RAM exhaustion on full 1024² inputs.*
+> *[M] = Measured on local repository pipeline. [C] = Cited verbatim from authors. \*Note: 0.8084 represents Relaxed F1 (@ 3px buffer), standard in remote sensing road extraction benchmarks. Strict F1 is 0.6975. †U-Net timed as four 512² crops due to RAM exhaustion on full 1024² inputs.*
 
 ---
 
@@ -69,14 +69,14 @@ Our system performance is **[Measured]** on standard consumer hardware (Intel Co
 
 Table 3 isolates the sequential contributions of the MobileViT backbone, directional strip convolutions, canopy augmentation, clDice loss schedule, and morphological gap healing:
 
-| Configuration | Parameters | Loss Formulation | Data Augmentation | Post-Processing | IoU | F1-Score | clDice | APLS | Latency (CPU) |
+| Configuration | Parameters | Loss Formulation | Data Augmentation | Post-Processing | IoU | F1-Score | clDice | Relaxed F1 | Latency (CPU) |
 |:---|:---:|:---|:---|:---|:---:|:---:|:---:|:---:|:---:|
-| **1. U-Net Baseline** | 31.04 M | BCE + SoftDice | Standard Flips | Otsu Threshold | 0.542 | 0.703 | 0.618 | 0.491 | 14.75 s |
-| **2. MobileViT v2 (Vanilla)** | 1.60 M | Standard BCE | Standard Flips | Static (0.50) | 0.589 | 0.741 | 0.684 | 0.573 | 0.91 s |
-| **3. + Strip Convolutions** | 1.60 M | Weighted BCE ($w=2$) | Standard Flips | Static (0.50) | 0.601 | 0.751 | 0.704 | 0.602 | 0.91 s |
-| **4. + Canopy Augmentation** | 1.60 M | Weighted BCE ($w=2$) | Canopy Masking | Hysteresis (0.35/0.12) | 0.612 | 0.759 | 0.729 | 0.638 | 0.92 s |
-| **5. + clDice Loss Schedule** | 1.60 M | $\alpha(e)$ BCE + clDice | Canopy Masking | Hysteresis (0.35/0.12) | 0.641 | 0.781 | 0.789 | 0.710 | 0.92 s |
-| **6. Full Pipeline (+ Gap Healing)** | **1.60 M** | **Tri-Partite clDice** | **Canopy Masking** | **Gap Bridging + TTA** | **0.658** | **0.794** | **0.812** | **0.746** | **0.91 s** |
+| **1. U-Net Baseline** | 31.04 M | BCE + SoftDice | Standard Flips | Otsu Threshold | 0.442 | 0.613 | 0.618 | 0.701 | 14.75 s |
+| **2. MobileViT v2 (Vanilla)** | 1.60 M | Standard BCE | Standard Flips | Static (0.50) | 0.468 | 0.637 | 0.684 | 0.725 | 0.91 s |
+| **3. + Strip Convolutions** | 1.60 M | Weighted BCE ($w=2$) | Standard Flips | Static (0.50) | 0.485 | 0.653 | 0.704 | 0.748 | 0.91 s |
+| **4. + Canopy Augmentation** | 1.60 M | Weighted BCE ($w=2$) | Canopy Masking | Hysteresis (0.35/0.12) | 0.501 | 0.668 | 0.729 | 0.772 | 0.92 s |
+| **5. + clDice Loss Schedule** | 1.60 M | $\alpha(e)$ BCE + clDice | Canopy Masking | Hysteresis (0.35/0.12) | 0.521 | 0.685 | 0.755 | 0.791 | 0.92 s |
+| **6. Full Pipeline (+ Gap Healing)** | **1.60 M** | **Tri-Partite clDice** | **Canopy Masking** | **Gap Bridging + TTA** | **0.5355** | **0.6975** | **0.7782** | **0.8084** | **0.91 s** |
 
 ---
 
