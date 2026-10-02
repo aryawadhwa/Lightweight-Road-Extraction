@@ -113,3 +113,8 @@ wandb/
 wandb_local.json
 results/val_preds/
 
+
+# Archives and logs
+archive/
+*.log
+*.zip
