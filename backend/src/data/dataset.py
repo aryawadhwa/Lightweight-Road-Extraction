@@ -147,10 +147,9 @@ def get_train_transforms():
 
 
 def get_val_transforms():
-    """Validation pipeline only normalizes and converts to tensor. No random crops."""
+    """Validation pipeline only normalizes and converts to tensor. No random crops, no resizing."""
     return A.Compose(
         [
-            A.Resize(height=256, width=256),
             A.Normalize(
                 mean=[0.485, 0.456, 0.406],
                 std=[0.229, 0.224, 0.225],

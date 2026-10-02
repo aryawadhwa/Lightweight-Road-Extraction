@@ -210,7 +210,8 @@ def main(args):
         pos_weight = estimate_pos_weight(train_dataset, max_pos_weight=args.max_pos_weight)
 
     train_loader = DataLoader(train_dataset, batch_size=args.batch_size, shuffle=True, num_workers=args.num_workers, pin_memory=True)
-    val_loader = DataLoader(val_dataset, batch_size=args.batch_size, shuffle=False, num_workers=args.num_workers, pin_memory=True)
+    # Validation uses batch_size=1 since we are evaluating on full 1024x1024 images instead of 256x256 crops
+    val_loader = DataLoader(val_dataset, batch_size=1, shuffle=False, num_workers=args.num_workers, pin_memory=True)
 
     # 2. Model
     model = MobileViT_v2(num_classes=1, width_mult=args.width_mult).to(device)
