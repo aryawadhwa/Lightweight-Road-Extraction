@@ -34,7 +34,6 @@ if os.path.exists(working_backend):
 shutil.copytree(backend_dir, working_backend)
 
 print("Installing dependencies...")
-subprocess.run(f"pip install -r {working_backend}/requirements.txt", shell=True, check=True)
 
 print("Finding DeepGlobe dataset...")
 deepglobe_train = None
