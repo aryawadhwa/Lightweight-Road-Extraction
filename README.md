@@ -20,7 +20,7 @@ Standard deep learning segmentation architectures (U-Net, DeepLabV3+, HRNet) tra
 - **Topological fragmentation**, where pixel-wise losses produce disconnected road artifacts unsuitable for vehicle routing and network centrality analysis.
 
 ### Core Objective
-We introduce an **ultra-lightweight encoder-decoder architecture** based on **MobileViT v2** paired with a graph-theoretic **clDice (Centerline-Dice) loss** and topological gap-bridging algorithms. The framework preserves spatial connectivity and network topology while maintaining an ultra-compact parameter footprint (**~1.6M parameters / ~6 MB**) suited for real-time edge deployment on field drones and low-power survey devices.
+We introduce an **ultra-lightweight encoder-decoder architecture** based on **MobileViT v2** paired with a graph-theoretic **clDice (Centerline-Dice) loss** and topological gap-bridging algorithms. The framework preserves spatial connectivity and network topology while maintaining an ultra-compact parameter footprint (**~1.6M parameters / 7.23 MB**) suited for real-time edge deployment on field drones and low-power survey devices.
 
 ---
 
@@ -42,9 +42,9 @@ Our feature extractor replaces quadratic self-attention with **localized linear 
 
 | Architecture | Parameters | Model Size | Edge Inference (FPS) | Primary Optimization |
 |:---|:---:|:---:|:---:|:---|
-| Baseline U-Net | 31.04 M | ~118.0 MB | ~14 FPS | Standard Convolutional Encoder-Decoder |
-| DeepLabV3+ (ResNet-50) | 41.20 M | ~157.0 MB | ~11 FPS | Atrous Spatial Pyramid Pooling |
-| **MobileViT v2 (Ours)** | **1.60 M** | **~6.1 MB** | **~48 FPS (ONNX)** | **Linear Attention + Graph-Theoretic Loss** |
+| Baseline U-Net | 31.04 M | 118.2 MB | ~14 FPS | Standard Convolutional Encoder-Decoder |
+| DeepLabV3+ (ResNet-50) | 41.20 M | 208.4 MB | ~11 FPS | Atrous Spatial Pyramid Pooling |
+| **MobileViT v2 (Ours)** | **1.60 M** | **7.23 MB** | **~48 FPS (ONNX)** | **Linear Attention + Graph-Theoretic Loss** |
 
 ---
 
@@ -85,12 +85,12 @@ Rigorous benchmarking on high-resolution rural satellite datasets demonstrates s
 
 ### Quantitative Performance Benchmark
 
-| Configuration | Strict IoU | Strict F1-Score | Topological clDice | Relaxed F1 (@ 3px buffer) | Edge CPU Latency |
+| Configuration | Strict IoU | Strict F1-Score | TOPO F1 | APLS | Edge CPU Latency |
 |:---|:---:|:---:|:---:|:---:|:---:|
-| U-Net Baseline (31M params) | 0.442 | 0.613 | 0.618 | 0.701 | 14.75 s |
-| MobileViT v2 (Vanilla BCE) | 0.468 | 0.637 | 0.684 | 0.725 | 0.91 s |
-| MobileViT v2 + Canopy Augmentation | 0.501 | 0.668 | 0.729 | 0.772 | 0.92 s |
-| **MobileViT v2 + clDice + Gap-Healing (Measured)** | **0.5355** | **0.6975** | **0.7782** | **0.8084** | **0.91 s (ONNX)** |
+| U-Net Baseline (31M params)$^\dagger$ | 0.584 | 0.737 | N/A | N/A | 14.75 s |
+| **MobileViT v2 + clDice + Gap-Healing** | **0.516** | **0.666** | **0.208** | **0.268** | **0.91 s (ONNX)** |
+
+*$^\dagger$ Note: Literature baselines are contextual and were not re-evaluated on the identical custom split.*
 
 ---
 
