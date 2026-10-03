@@ -58,7 +58,7 @@ def find_pairs(gt_dir: Path, pred_dir: Path) -> list[tuple[Path, Path]]:
     if not common:
         print(f"[WARNING] No matching stems found between {gt_dir} and {pred_dir}")
 
-    pairs = [(pred_files[s], gt_files[s]) for s in common][:30]
+    pairs = [(pred_files[s], gt_files[s]) for s in common]
     return pairs
 
 

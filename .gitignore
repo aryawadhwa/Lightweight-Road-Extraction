@@ -104,17 +104,27 @@ wandb/
 .DS_Store
 *.DS_Store
 
-# Include necessary models/weights
-!models/
-!models/mobilevit_v2*
-!backend/outputs/mobilevit_v2.onnx*
+# Exclude large model checkpoints (too large for GitHub)
+models/*.pth
+models/wandb_local.json
+
+# Include ONNX (small enough for GitHub)
+!models/mobilevit_v2.onnx
+!models/mobilevit_v2.onnx.data
+
+# Raw prediction masks (hundreds of PNGs — large in aggregate)
+outputs/preds/
+
+# Keep outputs summary/metrics if they exist
+!outputs/evaluation_summary.json
+!outputs/metrics/
 
 # Local Configs
 wandb_local.json
 results/val_preds/
 
-
-# Archives and logs
+# Kaggle logs and large archives
 archive/
+kaggle_evaluate_logs/
 *.log
 *.zip
