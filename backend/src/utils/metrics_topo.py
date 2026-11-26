@@ -165,9 +165,21 @@ def compute_topo(
     # --- connectivity score (used as equal third component) ---
     conn = _connectivity_preservation(G_pred, G_gt)
 
-    # Precision/Recall are purely based on nodes (endpoints and junctions)
-    precision = (ep_prec + jn_prec) / 2.0
-    recall    = (ep_rec  + jn_rec) / 2.0
+    # Precision/Recall based on nodes (endpoints and junctions that actually exist)
+    rec_terms = []
+    if ep_gt:
+        rec_terms.append(ep_rec)
+    if jn_gt:
+        rec_terms.append(jn_rec)
+    recall = (sum(rec_terms) / len(rec_terms)) if rec_terms else (1.0 if not (ep_pred or jn_pred) else 1.0)
+
+    prec_terms = []
+    if ep_pred:
+        prec_terms.append(ep_prec)
+    if jn_pred:
+        prec_terms.append(jn_prec)
+    precision = (sum(prec_terms) / len(prec_terms)) if prec_terms else (1.0 if not (ep_gt or jn_gt) else 0.0)
+
     eps = 1e-7
     base_f1 = 2.0 * precision * recall / (precision + recall + eps)
     
